@@ -89,19 +89,44 @@ bool	checker_argnum(char *arg)
 }
 
 //argnum[argc] contains truly arg
-int main(int argc, char **argnum)
+bool split_or_return(int argc, char **argnum)
 {
     bool    checker;
 
     if (argc == 2)
     {
         if (checker_argnum(argnum[1]) == false)
-			printf("arg is not corrective");
+			return (false);
 		else
-			printf("arg is corrective");
+			return (true);
     }
     else
-        printf("arg is not two");
+        return (false);
+}
+
+int main(int argc, char **argnum)
+{
+	char	**splited_arg;
+
+	if (split_or_return(argc, argnum) == false)
+		printf("this is mistake");
+	else
+	{
+		if (ft_strchr(argnum[1], ' ') == NULL)
+			printf("this is already sorted");
+		else
+		{
+			splited_arg = ft_split(argnum[1], ' ');
+			//check
+			size_t arg_position;
+			arg_position = 0;
+			while (splited_arg[arg_position] != NULL)
+			{
+				printf("%s\n", splited_arg[arg_position]);
+				arg_position++;
+			}
+		}
+	}
 }
 
 ///////
